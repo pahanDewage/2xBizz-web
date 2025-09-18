@@ -1,0 +1,119 @@
+.favorite-save-buttons {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+}
+
+.favorite-btn,
+.save-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.favorite-btn:hover,
+.save-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.favorite-btn .icon {
+  font-size: 16px;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.save-btn .icon {
+  font-size: 14px;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.favorite-btn.favorited .icon {
+  color: #e74c3c;
+  animation: heartBeat 0.6s ease-in-out;
+}
+
+.save-btn.saved .icon {
+  color: #f39c12;
+  animation: bookmarkPop 0.6s ease-in-out;
+}
+
+.save-btn.saved {
+  background: #f39c12;
+}
+
+.favorite-btn:hover .icon {
+  color: #e74c3c;
+  transform: scale(1.1);
+}
+
+.save-btn:hover .icon {
+  color: #f39c12;
+  transform: scale(1.1);
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bookmarkPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .favorite-save-buttons {
+    top: 8px;
+    right: 8px;
+    gap: 6px;
+  }
+
+  .favorite-btn,
+  .save-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .favorite-btn .icon {
+    font-size: 14px;
+  }
+
+  .save-btn .icon {
+    font-size: 12px;
+  }
+}

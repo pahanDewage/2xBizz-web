@@ -1,0 +1,184 @@
+.vlogs-page {
+  padding: 4rem 0;
+}
+
+.vlogs-page .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.vlogs-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+}
+
+/* Featured Vlog Card */
+.featured-vlog-card {
+  height: 80vh;
+  color: var(--color-white);
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3rem;
+}
+
+.card-overlay {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    transparent 100%
+  );
+  padding: 3rem;
+  margin: -3rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.featured-vlog-card .card-category,
+.vlog-card .card-category {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.featured-vlog-card .card-title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+.featured-vlog-card .card-meta,
+.vlog-card .card-meta {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  margin: 1rem 0;
+  line-height: 1.5;
+}
+
+.featured-vlog-card .card-excerpt {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  max-width: 90%;
+}
+
+.watch-more-btn {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-white);
+  color: var(--color-primary);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  align-self: flex-start;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.watch-more-btn:hover {
+  background: var(--color-secondary);
+}
+
+/* Content List */
+.content-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.vlog-card {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.vlog-card .card-image {
+  position: relative;
+}
+
+.vlog-card .card-image img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.play-icon {
+  color: var(--color-white);
+  font-size: 20px;
+  margin-left: 2px;
+}
+
+.vlog-card:hover .play-overlay {
+  opacity: 1;
+}
+
+.vlog-card .card-category {
+  color: var(--color-grey);
+}
+
+.vlog-card .card-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.vlog-card .card-title a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.vlog-card .card-title a:hover {
+  color: var(--color-secondary);
+}
+
+.vlog-card .card-meta {
+  margin-top: 0.5rem;
+  color: var(--color-grey);
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .vlogs-grid {
+    grid-template-columns: 1fr;
+  }
+  .featured-vlog-card {
+    height: 60vh;
+    padding: 2rem;
+  }
+  .featured-vlog-card .card-title {
+    font-size: 2rem;
+  }
+}

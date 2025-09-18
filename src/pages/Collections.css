@@ -1,0 +1,222 @@
+.collections-page {
+  padding-bottom: 4rem;
+}
+
+.collections-page .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.collections-header {
+  padding: 6rem 2rem;
+  text-align: center;
+  background-color: var(--color-secondary);
+  margin-bottom: 4rem;
+}
+
+.collections-title {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.collections-subtitle {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--color-grey);
+}
+
+.collections-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.tab-btn {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 1px solid var(--color-grey);
+  color: var(--color-grey);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.tab-btn:hover {
+  background: var(--color-grey);
+  color: var(--color-white);
+}
+
+.tab-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.collection-item {
+  background: var(--color-white);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.collection-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.item-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.collection-item:hover .item-image img {
+  transform: scale(1.05);
+}
+
+.item-content {
+  padding: 1.5rem;
+}
+
+.item-type {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--color-grey);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.item-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.item-title a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.item-title a:hover {
+  color: var(--color-secondary);
+}
+
+.item-date {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-grey);
+  margin-bottom: 1rem;
+}
+
+.remove-btn {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid #e74c3c;
+  color: #e74c3c;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}
+
+.remove-btn:hover {
+  background: #e74c3c;
+  color: var(--color-white);
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--color-white);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.empty-state h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+}
+
+.empty-state p {
+  font-family: var(--font-body);
+  color: var(--color-grey);
+  margin-bottom: 2rem;
+}
+
+.explore-btn {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.explore-btn:hover {
+  background: var(--color-secondary);
+  transform: translateY(-2px);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .collections-title {
+    font-size: 2.5rem;
+  }
+
+  .collections-tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tab-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .collection-item {
+    margin: 0 1rem;
+  }
+}

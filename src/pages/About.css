@@ -1,0 +1,160 @@
+.about-page .container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* About Header */
+.about-header {
+  text-align: center;
+  padding: 6rem 2rem;
+  background-color: var(--color-secondary);
+}
+
+.about-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-grey);
+}
+
+.about-title {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  margin: 1rem 0;
+}
+
+.about-intro {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--color-primary);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* Mission Section */
+.mission-section {
+  padding: 6rem 0;
+}
+
+.mission-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.mission-image img {
+  width: 100%;
+  height: auto;
+}
+
+.mission-content .section-title {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.mission-content p {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+/* Team Section */
+.team-section {
+  padding: 6rem 0;
+  background-color: var(--color-white);
+}
+
+.team-section .section-title {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.team-member img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+}
+
+.member-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.member-title {
+  font-family: var(--font-body);
+  color: var(--color-grey);
+  font-size: 0.9rem;
+}
+
+/* Values Section / Newsletter */
+.values-section {
+  padding: 6rem 2rem;
+  text-align: center;
+  background-color: var(--color-secondary);
+}
+
+.values-intro {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.newsletter-form-about {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid var(--color-primary);
+  max-width: 400px;
+  margin: 2rem auto 0;
+}
+.newsletter-form-about input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  padding: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+.newsletter-form-about input:focus {
+  outline: none;
+}
+.newsletter-form-about button {
+  border: none;
+  background: transparent;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .mission-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .mission-image {
+    order: -1; /* Move image to top on smaller screens */
+  }
+  .about-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
