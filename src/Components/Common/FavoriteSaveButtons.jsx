@@ -48,6 +48,7 @@ const FavoriteSaveButtons = ({ contentId, contentType, title, userId }) => {
   const handleFavorite = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log('handleFavorite', contentType, contentId, userId);
 
     try {
       const response = await api.post(`/${contentType}/${contentId}/favorite`, {
@@ -66,6 +67,8 @@ const FavoriteSaveButtons = ({ contentId, contentType, title, userId }) => {
     e.preventDefault();
     e.stopPropagation();
     setIsSaved(!isSaved);
+
+    console.log('handleSave', contentType, contentId, userId);
 
     try {
       const response = await api.post(`/${contentType}/${contentId}/save`, {

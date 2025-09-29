@@ -40,11 +40,11 @@ const CompaniesPage = () => {
     fetchCompanies();
   }, []);
 
-  // Filter and sort companies based on current filters
+  // Filter and sort 
   useEffect(() => {
     let filtered = [...companies];
 
-    // Apply risk level filter
+    // risk level filter
     if (filters.riskLevel !== 'all') {
       filtered = filtered.filter(company => 
         company.type.toLowerCase() === filters.riskLevel.toLowerCase()
