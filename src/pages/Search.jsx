@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { searchAll, getSearchSuggestions } from '../api/search';
+import { searchAll, getSearchSuggestions, getCachedData, setCachedData } from '../api/search';
+import { fetchBlogs } from '../api/blogs';
+import { companiesApi } from '../api/portfolioApi';
 import './Search.css';
 
 const Search = () => {
@@ -10,21 +12,72 @@ const Search = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [allBlogs, setAllBlogs] = useState([]);
+  const [allCompanies, setAllCompanies] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
+  // Load all data once on component mount
+  useEffect(() => {
+    const loadAllData = async () => {
+      try {
+        setLoading(true);
+        
+        // Check cache first
+        const cached = getCachedData();
+        if (cached) {
+          setAllBlogs(cached.blogs);
+          setAllCompanies(cached.companies);
+          setDataLoaded(true);
+          setLoading(false);
+          return;
+        }
+
+        // Load fresh data
+        const [blogsResponse, companiesResponse] = await Promise.allSettled([
+          fetchBlogs(),
+          companiesApi.getAll()
+        ]);
+
+        const blogs = blogsResponse.status === 'fulfilled' ? blogsResponse.value : [];
+        const companies = companiesResponse.status === 'fulfilled' ? companiesResponse.value : [];
+
+        setAllBlogs(blogs);
+        setAllCompanies(companies);
+        
+        // Cache the data
+        setCachedData(blogs, companies);
+        setDataLoaded(true);
+      } catch (error) {
+        console.error('Error loading data for search:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAllData();
+  }, []);
+
+  // Perform search when query changes and data is loaded
+  useEffect(() => {
+    if (dataLoaded && query) {
+      performSearch(query);
+    }
+  }, [query, dataLoaded]);
+
+  // Handle URL changes
   useEffect(() => {
     const searchQuery = searchParams.get('q');
-    if (searchQuery) {
+    if (searchQuery && searchQuery !== query) {
       setQuery(searchQuery);
-      performSearch(searchQuery);
     }
   }, [searchParams]);
 
-  const performSearch = async (searchQuery) => {
-    if (!searchQuery.trim()) return;
+  const performSearch = (searchQuery) => {
+    if (!searchQuery.trim() || !dataLoaded) return;
     
     setLoading(true);
     try {
-      const searchResults = await searchAll(searchQuery);
+      const searchResults = searchAll(searchQuery, allBlogs, allCompanies);
       setResults(searchResults);
     } catch (error) {
       console.error('Search error:', error);
@@ -44,6 +97,7 @@ const Search = () => {
 
   const handleSuggestionClick = (suggestion) => {
     setQuery(suggestion);
+    window.history.pushState({}, '', `/search?q=${encodeURIComponent(suggestion)}`);
     performSearch(suggestion);
   };
 

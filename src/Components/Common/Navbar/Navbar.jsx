@@ -3,12 +3,20 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import './Navbar.css';
 import { auth } from '../../../firebaseConfig';
+import { getSearchSuggestions, getCachedData, setCachedData } from '../../../api/search';
+import { fetchBlogs } from '../../../api/blogs';
+import { companiesApi } from '../../../api/portfolioApi';
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [allBlogs, setAllBlogs] = useState([]);
+  const [allCompanies, setAllCompanies] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -18,6 +26,42 @@ const Navbar = () => {
     });
 
     return () => unsubscribe();
+  }, []);
+
+  // Load search data once
+  useEffect(() => {
+    const loadSearchData = async () => {
+      try {
+        // Check cache first
+        const cached = getCachedData();
+        if (cached) {
+          setAllBlogs(cached.blogs);
+          setAllCompanies(cached.companies);
+          setDataLoaded(true);
+          return;
+        }
+
+        // Load fresh data
+        const [blogsResponse, companiesResponse] = await Promise.allSettled([
+          fetchBlogs(),
+          companiesApi.getAll()
+        ]);
+
+        const blogs = blogsResponse.status === 'fulfilled' ? blogsResponse.value : [];
+        const companies = companiesResponse.status === 'fulfilled' ? companiesResponse.value : [];
+
+        setAllBlogs(blogs);
+        setAllCompanies(companies);
+        
+        // Cache the data
+        setCachedData(blogs, companies);
+        setDataLoaded(true);
+      } catch (error) {
+        console.error('Error loading search data:', error);
+      }
+    };
+
+    loadSearchData();
   }, []);
 
   useEffect(() => {
@@ -59,6 +103,32 @@ const Navbar = () => {
     if (e.key === 'Enter') {
       handleSearch(e);
     }
+  };
+
+  const handleSearchInputChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    
+    if (value.length > 2 && dataLoaded) {
+      try {
+        const suggestions = getSearchSuggestions(value, allBlogs, allCompanies);
+        setSearchSuggestions(suggestions);
+        setShowSuggestions(true);
+      } catch (error) {
+        console.error('Error generating suggestions:', error);
+        setSearchSuggestions([]);
+      }
+    } else {
+      setSearchSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchQuery(suggestion);
+    setShowSuggestions(false);
+    navigate(`/search?q=${encodeURIComponent(suggestion)}`);
+    closeMobileMenu();
   };
 
   // Close mobile menu when clicking outside
@@ -134,9 +204,27 @@ const Navbar = () => {
                   placeholder="Search insights, companies..." 
                   className="search-input"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={handleSearchInputChange}
                   onKeyPress={handleSearchKeyPress}
+                  onFocus={() => searchQuery.length > 2 && setShowSuggestions(true)}
+                  onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                 />
+                
+                {/* Search Suggestions Dropdown */}
+                {showSuggestions && searchSuggestions.length > 0 && (
+                  <div className="search-suggestions">
+                    {searchSuggestions.slice(0, 5).map((suggestion, index) => (
+                      <div 
+                        key={index}
+                        className="suggestion-item"
+                        onClick={() => handleSuggestionClick(suggestion)}
+                      >
+                        <span className="suggestion-icon">🔍</span>
+                        <span>{suggestion}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </form>
           </div>

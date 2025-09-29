@@ -145,11 +145,11 @@ const SectorsPage = () => {
         </div>
       </div>
 
-      {/* Enhanced Sectors Content */}
+
       <div className="portfolio-content">
         <div className="container mx-auto px-4 py-8">
           
-          {/* Filter Section */}
+
           <div className="filter-section">
             <div className="filter-header">
               <h3 className="filter-title">Filter & Sort Sectors</h3>
