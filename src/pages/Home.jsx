@@ -66,7 +66,7 @@ const Home = () => {
       <GoogleFinanceMarketData />
       <GoogleFinanceMostActive />
       <GoogleFinanceGainersLosers />
-      <TradingViewMarketOverview />
+      {/* <TradingViewMarketOverview /> */}
       <NewsletterSection />
     </div>
   );

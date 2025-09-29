@@ -2,38 +2,38 @@ import React, { useEffect } from 'react';
 import './TradingView.css';
 
 const TradingView = () => {
-  useEffect(() => {
-    // Load TradingView advanced chart widget
-    const script = document.createElement('script');
-    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
-    script.async = true;
-    script.innerHTML = JSON.stringify({
-      "autosize": true,
-      "symbol": "NASDAQ:AAPL",
-      "interval": "D",
-      "timezone": "Etc/UTC",
-      "theme": "light",
-      "style": "1",
-      "locale": "en",
-      "toolbar_bg": "#f1f3f6",
-      "enable_publishing": false,
-      "hide_top_toolbar": false,
-      "hide_legend": false,
-      "save_image": false,
-      "container_id": "tradingview_advanced_chart"
-    });
+  // useEffect(() => {
+  //   // Load TradingView advanced chart widget
+  //   const script = document.createElement('script');
+  //   script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+  //   script.async = true;
+  //   script.innerHTML = JSON.stringify({
+  //     "autosize": true,
+  //     "symbol": "NASDAQ:AAPL",
+  //     "interval": "D",
+  //     "timezone": "Etc/UTC",
+  //     "theme": "light",
+  //     "style": "1",
+  //     "locale": "en",
+  //     "toolbar_bg": "#f1f3f6",
+  //     "enable_publishing": false,
+  //     "hide_top_toolbar": false,
+  //     "hide_legend": false,
+  //     "save_image": false,
+  //     "container_id": "tradingview_advanced_chart"
+  //   });
     
-    const container = document.getElementById('tradingview-advanced-chart');
-    if (container) {
-      container.appendChild(script);
-    }
+  //   const container = document.getElementById('tradingview-advanced-chart');
+  //   if (container) {
+  //     container.appendChild(script);
+  //   }
     
-    return () => {
-      if (container && container.contains(script)) {
-        container.removeChild(script);
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (container && container.contains(script)) {
+  //       container.removeChild(script);
+  //     }
+  //   };
+  // }, []);
 
   return (
     <div className="tradingview-page">
