@@ -56,7 +56,7 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <TradingViewWidget/>
+      {/* <TradingViewWidget/> */}
       <TopStoriesSection blogs={blogs} isLoading={loading} />
       <MarketInsightsSection randomBlogs={randomBlogs} navigate={navigate} isLoading={loading} />
       <InvestmentToolsSection />
